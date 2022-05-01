@@ -1,0 +1,51 @@
+{
+    "id": 6,
+    "phone_number": "+917674946287",
+    "full_name": "Venkat Pilla",
+    "email": "venkat@gmail.com",
+    "address": "",
+    "role": 1
+}
+
+{
+    "phone_number": "+917674946",
+    "full_name": "Venkat Pilla",
+    "email": "venkat@gmail.com"
+}
+
+{
+    "phone_number": "+918185815698",
+    "full_name": "Haribabu",
+    "email": "hari@gmail.com"
+}
+
+{
+    "phone_number": "+919398603172",
+    "full_name": "Saran",
+    "email": "saran@gmail.com"
+}
+
+{
+    "phone_number": "+918185815698",
+    "full_name": "Haribabu",
+    "email": "hari@gmail.com",
+    "address": "Kothavalasa, Srikakulam, Andhrapradesh-532185"
+}
+
+{
+    "phone_number": "+917893622227",
+    "full_name": "Shriya",
+    "email": "shriya@gmail.com",
+    "address": "Kothavalasa, Srikakulam, Andhrapradesh-532185"
+}
+
+{
+    "phone_number": "8185815698",
+    "otp" : "2587"
+}
+
+{
+    "phone_number": "+918500639821",
+    "otp" : "2587"
+}
+
