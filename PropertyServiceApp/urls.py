@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import login, verify_login, registration, verify_registration, update_user, all_users, dashboard
+from .views import login, verify_login, registration, verify_registration, update_user, all_users, dashboard, create_service_request
 
 
 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('verify_registration/', verify_registration, name='verify_registration'),
     path('update_user/', update_user, name='update_user'),
     path('dashboard/', dashboard, name='dashboard'),
+    path('service_request/', create_service_request, name='service_request'),
 ]

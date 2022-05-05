@@ -1,4 +1,88 @@
 {
+    "property_title" : "xyz",
+    "property_type" : "bunglow",
+    "property_description" : "need to trace my property location",
+    "available_days" : "any_day",
+    "available_time" : "any_time",
+    "user": 6
+}
+
+{
+    'property_title': 'xyz', 
+    'property_type': 'bunglow', 
+    'property_description': 'need to trace my property location', 
+    'available_days': 'any_day', 
+    'available_time': 'any_time', 
+    'user': '25'
+}
+
+{
+    "property_title" : "xyz",
+    "property_type" : "bunglow",
+    "property_description" : "need to trace my property location",
+    "available_days" : {
+          "sunday": true,
+          "monday": true,
+          "tuesday": true,
+          "wednesday": true,
+          "thursday": true,
+          "friday": true,
+          "saturday": true
+        },
+    "available_time" : {
+          "any_time": "any_time",
+          "from_time": "",
+          "to_time": ""
+        },
+    "user": 6
+}
+
+
+{
+    "sunday": true,
+    "monday": true,
+    "tuesday": true,
+    "wednesday": true,
+    "thursday": true,
+    "friday": true,
+    "saturday": true
+}
+
+{
+    "any_time": "any_time",
+    "from_time": "",
+    "to_time": ""
+}
+
+{
+    "property_title" : "xyz",
+    "property_type" : "bunglow",
+    "property_description" : "need to trace my property location",
+    "available_days" : {
+            "sunday": "true",
+            "sunday": "true",
+            "tuesday": "true",
+            "wednesday": "true",
+            "thursday": "true",
+            "friday": "true",
+            "saturday": "true"
+        }
+    "available_time" : {
+            "any_time": "any_time",
+            "from_time": "",
+            "to_time": ""
+        }
+    "user": 22
+}
+    
+    
+
+
+
+
+
+
+{
     "id": 6,
     "phone_number": "+917674946287",
     "full_name": "Venkat Pilla",
