@@ -34,7 +34,7 @@ class Users(models.Model):
         Roles, on_delete=models.DO_NOTHING, null=True, default=1)
 
     def __str__(self):
-        return self.full_name
+        return self.full_name + " || " + self.phone_number
 
 
 class PropertyTracing(models.Model):
@@ -48,24 +48,67 @@ class PropertyTracing(models.Model):
     available_time = models.JSONField(blank=True, null=True)
 
     def __str__(self):
-        return self.property_title
+        return self.property_title + " || " + self.property_description
 
 
-# {
-# "user" : "6",
-# "property_title" : "ABC",
-# "property_type" : "house",
-# "property_description" : "need to trace my property",
-# "available_days" : "any_day",
-# "available_time" : "any_time"
-# }
+class MaintainanceAndLease(models.Model):
+    user = models.ForeignKey(
+        Users, on_delete=models.CASCADE, default=0, related_name='maintainance_and_lease')
+    property_title = models.CharField(max_length=255, blank=True, null=True)
+    property_type = models.CharField(max_length=55, blank=True, null=True)
+    property_description = models.CharField(
+        max_length=255, blank=True, null=True)
+    video = models.TextField(blank=True, null=True)
+    virtual_tour = models.TextField(blank=True, null=True)
+    available_days = models.JSONField(blank=True, null=True)
+    available_time = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return self.property_title + " || " + self.property_description
 
 
-# {
-# "property_title" : "xyz",
-# "property_type" : "bunglow",
-# "property_description" : "need to trace my property location",
-# "available_days" : "any_day",
-# "available_time" : "any_time",
-# "user": 6
-# }
+class LegalIssues(models.Model):
+    user = models.ForeignKey(
+        Users, on_delete=models.CASCADE, default=0, related_name='legal_issues')
+    issue_type = models.CharField(max_length=255, blank=True, null=True)
+    property_type = models.CharField(max_length=55, blank=True, null=True)
+    issue_description = models.CharField(
+        max_length=255, blank=True, null=True)
+    available_days = models.JSONField(blank=True, null=True)
+    available_time = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return self.issue_type + " || " + self.issue_description
+
+
+class PropertyMonitoring(models.Model):
+    user = models.ForeignKey(
+        Users, on_delete=models.CASCADE, default=0, related_name='property_monitoring')
+    monitoring_type = models.CharField(max_length=255, blank=True, null=True)
+    property_type = models.CharField(max_length=55, blank=True, null=True)
+    property_description = models.CharField(
+        max_length=255, blank=True, null=True)
+    available_days = models.JSONField(blank=True, null=True)
+    available_time = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return self.monitoring_type + " || " + self.property_description
+
+
+class InvestmentAdvice(models.Model):
+    user = models.ForeignKey(
+        Users, on_delete=models.CASCADE, default=0, related_name='investment_advice')
+    property_id = models.CharField(max_length=255, blank=True, null=True)
+    property_size = models.CharField(max_length=55, blank=True, null=True)
+    land_size = models.CharField(max_length=255, blank=True, null=True)
+    beds = models.CharField(max_length=255, blank=True, null=True)
+    baths = models.CharField(max_length=255, blank=True, null=True)
+    garage = models.CharField(max_length=255, blank=True, null=True)
+    garage_size = models.CharField(max_length=255, blank=True, null=True)
+    build_year = models.CharField(max_length=255, blank=True, null=True)
+    property_features = models.JSONField(blank=True, null=True)
+    available_days = models.JSONField(blank=True, null=True)
+    available_time = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return self.property_id + " || " + self.property_size

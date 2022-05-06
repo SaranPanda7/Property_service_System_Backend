@@ -1,17 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Users, Roles, PropertyTracing
+from .models import User, Users, Roles, PropertyTracing, MaintainanceAndLease, LegalIssues, PropertyMonitoring, InvestmentAdvice
 from .forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-
-
-# from django.apps import apps
-
-# app = apps.get_app_config('graphql_auth')
-
-# for model_name, model in app.models.items():
-#     admin.site.register(model)
 
 
 class UserAdmin(BaseUserAdmin):
@@ -53,6 +45,14 @@ admin.site.register(Users)
 admin.site.register(Roles)
 
 admin.site.register(PropertyTracing)
+
+admin.site.register(MaintainanceAndLease)
+
+admin.site.register(LegalIssues)
+
+admin.site.register(PropertyMonitoring)
+
+admin.site.register(InvestmentAdvice)
 
 
 # admin.site.unregister(Group)

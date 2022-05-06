@@ -3,7 +3,7 @@ import json
 from multiprocessing import context
 from rest_framework.parsers import JSONParser
 from .models import Roles, User, Users, PropertyTracing
-from .serializers import UserSerializer, GetAllPropertyTracingSerializer, AddPropertyTracingSerializer
+from .serializers import UserSerializer, GetAllPropertyTracingSerializer, AddPropertyTracingSerializer, AddMaintainanceAndLeaseSerializer, AddLegalIssuesSerializer, AddPropertyMonitoringSerializer, AddInvestmentAdviceSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -193,6 +193,22 @@ def create_service_request(request):
         if service_type == "property_tracing":
 
             serializer = AddPropertyTracingSerializer(data=json_data)
+
+        if service_type == "maintainance_and_lease":
+
+            serializer = AddMaintainanceAndLeaseSerializer(data=json_data)
+
+        if service_type == "legal_issues":
+
+            serializer = AddLegalIssuesSerializer(data=json_data)
+
+        if service_type == "property_monitoring":
+
+            serializer = AddPropertyMonitoringSerializer(data=json_data)
+
+        if service_type == "investment_advice":
+
+            serializer = AddInvestmentAdviceSerializer(data=json_data)
 
         if serializer.is_valid():
             serializer.save()
