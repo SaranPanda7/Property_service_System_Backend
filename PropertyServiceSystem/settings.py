@@ -67,7 +67,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "PropertyServiceSystem",
         "USER": "postgres",
-        "PASSWORD": "Gharibabu",        
+        "PASSWORD": "Gharibabu",
     },
 }
 
@@ -117,8 +117,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-# -------START TWILIO CLING DETAILS--------
+# -------START TWILIO CLLING DETAILS--------
 # Email_Id = "haricoolguys@gmail.com"
+# Email_Id = "iamhacke1r@gmail.com"
 # Password = 'Gurugubelliharibabu@1'
 
 # ACCOUNT_SECURITY_API_KEY='jK2XmffiPhfxnt4IZ11bP9iVoDF7viBi'
@@ -128,7 +129,7 @@ CORS_ALLOWED_ORIGINS = [
 
 # RECOVERY_CODE = "FosW0ypW4hxKuiSnc-d-yoDLHTxiStCBbc8jHVpc"
 
-# -------STOP TWILIO CLING DETAILS--------
+# -------STOP TWILIO CLLING DETAILS--------
 
 
 # APPEND_SLASH=False

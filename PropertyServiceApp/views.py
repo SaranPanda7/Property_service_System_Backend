@@ -1,14 +1,15 @@
+from ast import Return
 from email import message
 import json
 from multiprocessing import context
 from rest_framework.parsers import JSONParser
-from .models import Roles, User, Users, PropertyTracing
-from .serializers import UserSerializer, GetAllPropertyTracingSerializer, AddPropertyTracingSerializer, AddMaintainanceAndLeaseSerializer, AddLegalIssuesSerializer, AddPropertyMonitoringSerializer, AddInvestmentAdviceSerializer
+from .models import *
+from .serializers import *
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .twilio_client import verifications, verification_checks
-from .utils import propertyTracingDataProcessor
+from .utils import *
 
 
 @api_view(['GET', 'POST'])
@@ -210,6 +211,10 @@ def create_service_request(request):
 
             serializer = AddInvestmentAdviceSerializer(data=json_data)
 
+        if service_type == "other_services":
+
+            serializer = AddOtherServicesSerializer(data=json_data)
+
         if serializer.is_valid():
             serializer.save()
 
@@ -221,10 +226,69 @@ def create_service_request(request):
 
     if request.method == 'GET':
 
-        property_tracing_requests = PropertyTracing.objects.all()
+        property_tracing = GetAllPropertyTracingSerializer(
+            PropertyTracing.objects.all(), many=True)
 
-        serializer = GetAllPropertyTracingSerializer(
-            property_tracing_requests, many=True)
+        maintainance_lease = GetAllMaintainanceAndLeaseSerializer(
+            MaintainanceAndLease.objects.all(), many=True)
+
+        legal_issues = GetAllLegalIssuesSerializer(
+            LegalIssues.objects.all(), many=True)
+
+        property_monitoring = GetAllPropertyMonitoringSerializer(
+            PropertyMonitoring.objects.all(), many=True)
+
+        investment_advice = GetAllInvestmentAdviceSerializer(
+            InvestmentAdvice.objects.all(), many=True)
+
+        other_services = GetAllOtherServicesSerializer(
+            OtherServices.objects.all(), many=True)
+
         context = {'message': "showing data from services",
-                   'data': serializer.data}
+                   'all_service_requests': property_tracing.data + maintainance_lease.data + legal_issues.data + property_monitoring.data + investment_advice.data + other_services.data
+                   }
         return Response(context, status=status.HTTP_202_ACCEPTED)
+
+
+@api_view(['POST'])
+def fetch_all_service_requests(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        try:
+            user = Users.objects.get(phone_number=data["phone_number"])
+            token = data["token"] == "true"
+            uid = data['id']
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token:
+
+            property_tracing = GetAllPropertyTracingSerializer(
+                PropertyTracing.objects.filter(user_id=uid), many=True)
+
+            maintainance_lease = GetAllMaintainanceAndLeaseSerializer(
+                MaintainanceAndLease.objects.filter(user_id=uid), many=True)
+
+            legal_issues = GetAllLegalIssuesSerializer(
+                LegalIssues.objects.filter(user_id=uid), many=True)
+
+            property_monitoring = GetAllPropertyMonitoringSerializer(
+                PropertyMonitoring.objects.filter(user_id=uid), many=True)
+
+            investment_advice = GetAllInvestmentAdviceSerializer(
+                InvestmentAdvice.objects.filter(user_id=uid), many=True)
+
+            other_services = GetAllOtherServicesSerializer(
+                OtherServices.objects.filter(user_id=uid), many=True)
+
+            context = {"data": property_tracing.data + maintainance_lease.data + legal_issues.data + property_monitoring.data + investment_advice.data + other_services.data
+                       }
+
+            return Response(context)
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)

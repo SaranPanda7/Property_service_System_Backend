@@ -1,6 +1,5 @@
 from django.urls import path
-from .views import login, verify_login, registration, verify_registration, update_user, all_users, dashboard, create_service_request
-
+from .views import *
 
 
 urlpatterns = [
@@ -13,4 +12,6 @@ urlpatterns = [
     path('update_user/', update_user, name='update_user'),
     path('dashboard/', dashboard, name='dashboard'),
     path('service_request/', create_service_request, name='service_request'),
+    path('fetch_all_service_requests/', fetch_all_service_requests,
+         name='fetch_all_service_requests/'),
 ]
