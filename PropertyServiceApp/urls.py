@@ -12,6 +12,13 @@ urlpatterns = [
     path('update_user/', update_user, name='update_user'),
     path('dashboard/', dashboard, name='dashboard'),
     path('service_request/', create_service_request, name='service_request'),
-    path('fetch_all_service_requests/', fetch_all_service_requests,
-         name='fetch_all_service_requests/'),
+    path('fetch_service_requests_by_user_id/', fetch_service_requests_by_user_id,
+         name='fetch_service_requests_by_user_id/'),
+    path('fetch_service_requests_for_admin/', fetch_service_requests_for_admin,
+         name='fetch_service_requests_for_admin/'),
+    path('fetch_all_users/', fetch_all_users,
+         name='fetch_all_users/'),
+    path('assign_agent_for_service_request/', assign_agent_for_service_request,
+         name='assign_agent_for_service_request/'),
+
 ]

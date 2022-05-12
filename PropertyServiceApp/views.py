@@ -251,11 +251,95 @@ def create_service_request(request):
 
 
 @api_view(['POST'])
-def fetch_all_service_requests(request):
+def assign_agent_for_service_request(request):
 
     if request.method == 'POST':
         data = request.data
         print(data)
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            user_role = data["role"] == "admin"
+
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token and user_role:
+
+            json_data = request.data["data"]
+
+            service_type = json_data['service']
+
+            if service_type == "property_tracing":
+
+                service_request = PropertyTracing.objects.get(
+                    service_id=json_data['service_id'])
+
+                serializer = AddPropertyTracingSerializer(
+                    instance=service_request, data=json_data)
+
+            if service_type == "maintainance_and_lease":
+
+                service_request = MaintainanceAndLease.objects.get(
+                    service_id=json_data['service_id'])
+
+                serializer = AddMaintainanceAndLeaseSerializer(
+                    instance=service_request, data=json_data)
+
+            if service_type == "legal_issues":
+
+                service_request = LegalIssues.objects.get(
+                    service_id=json_data['service_id'])
+
+                serializer = AddLegalIssuesSerializer(
+                    instance=service_request, data=json_data)
+
+            if service_type == "property_monitoring":
+
+                service_request = PropertyMonitoring.objects.get(
+                    service_id=json_data['service_id'])
+
+                serializer = AddPropertyMonitoringSerializer(
+                    instance=service_request, data=json_data)
+
+            if service_type == "investment_advice":
+
+                service_request = InvestmentAdvice.objects.get(
+                    service_id=json_data['service_id'])
+
+                serializer = AddInvestmentAdviceSerializer(
+                    instance=service_request, data=json_data)
+
+            if service_type == "other_services":
+
+                service_request = OtherServices.objects.get(
+                    service_id=json_data['service_id'])
+
+                serializer = AddOtherServicesSerializer(
+                    instance=service_request, data=json_data)
+
+            if serializer.is_valid():
+                serializer.save()
+
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            else:
+                print(serializer.errors)
+                context = {"error": serializer.errors}
+                return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def fetch_service_requests_by_user_id(request):
+
+    if request.method == 'POST':
+        data = request.data
 
         try:
             user = Users.objects.get(phone_number=data["phone_number"])
@@ -289,6 +373,80 @@ def fetch_all_service_requests(request):
                        }
 
             return Response(context)
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def fetch_service_requests_for_admin(request):
+
+    if request.method == 'POST':
+        data = request.data
+
+        try:
+            user = Users.objects.get(phone_number=data["phone_number"])
+            token = data["token"] == "true"
+            role = data["role"] == "admin"
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token and role:
+
+            property_tracing = GetAllPropertyTracingSerializer(
+                PropertyTracing.objects.all(), many=True)
+
+            maintainance_lease = GetAllMaintainanceAndLeaseSerializer(
+                MaintainanceAndLease.objects.all(), many=True)
+
+            legal_issues = GetAllLegalIssuesSerializer(
+                LegalIssues.objects.all(), many=True)
+
+            property_monitoring = GetAllPropertyMonitoringSerializer(
+                PropertyMonitoring.objects.all(), many=True)
+
+            investment_advice = GetAllInvestmentAdviceSerializer(
+                InvestmentAdvice.objects.all(), many=True)
+
+            other_services = GetAllOtherServicesSerializer(
+                OtherServices.objects.all(), many=True)
+
+            context = {"data": property_tracing.data + maintainance_lease.data + legal_issues.data + property_monitoring.data + investment_advice.data + other_services.data
+                       }
+
+            return Response(context)
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def fetch_all_users(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            user_role = data["role"] == "admin"
+            role_data = Roles.objects.get(role="agent")
+
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token and user_role:
+
+            users_data = UserSerializer(
+                Users.objects.filter(role_id=role_data.id), many=True)
+
+            context = {"data": users_data.data}
+
+            return Response(context)
+
         else:
             context = {"message": "Unauthorized Acess"}
             return Response(context, status=status.HTTP_401_UNAUTHORIZED)
