@@ -250,7 +250,7 @@ def create_service_request(request):
         return Response(context, status=status.HTTP_202_ACCEPTED)
 
 
-@api_view(['POST'])
+@api_view(['GET', 'POST'])
 def assign_agent_for_service_request(request):
 
     if request.method == 'POST':
@@ -268,71 +268,98 @@ def assign_agent_for_service_request(request):
 
         if user and token and user_role:
 
-            json_data = request.data["data"]
+            json_data = request.data
 
-            service_type = json_data['service']
+            service_type = json_data['service_name']
+            service_id = json_data['service_id']
+            print(service_type)
+            print(service_id)
 
-            if service_type == "property_tracing":
+            if service_type == "propertyTracing":
+                print("its property tracing service")
 
                 service_request = PropertyTracing.objects.get(
                     service_id=json_data['service_id'])
+                print(service_request)
 
-                serializer = AddPropertyTracingSerializer(
-                    instance=service_request, data=json_data)
+                service_request.agent_id = json_data['agent_id']
+                service_request.save()
 
-            if service_type == "maintainance_and_lease":
+                context = {"request updated"}
+
+                return Response(context, status=status.HTTP_201_CREATED)
+
+            if service_type == "maintainanceAndLease":
+                print("its maintainance and lease service")
 
                 service_request = MaintainanceAndLease.objects.get(
                     service_id=json_data['service_id'])
+                print(service_request)
 
-                serializer = AddMaintainanceAndLeaseSerializer(
-                    instance=service_request, data=json_data)
+                service_request.agent_id = json_data['agent_id']
+                service_request.save()
 
-            if service_type == "legal_issues":
+                context = {"request updated"}
+
+                return Response(context, status=status.HTTP_201_CREATED)
+
+            if service_type == "legalIssues":
+                print("its legal issues service")
 
                 service_request = LegalIssues.objects.get(
                     service_id=json_data['service_id'])
+                print(service_request)
 
-                serializer = AddLegalIssuesSerializer(
-                    instance=service_request, data=json_data)
+                service_request.agent_id = json_data['agent_id']
+                service_request.save()
 
-            if service_type == "property_monitoring":
+                context = {"request updated"}
+
+                return Response(context, status=status.HTTP_201_CREATED)
+
+            if service_type == "propertyMonitoring":
+                print("its property monitoring service")
 
                 service_request = PropertyMonitoring.objects.get(
                     service_id=json_data['service_id'])
+                print(service_request)
 
-                serializer = AddPropertyMonitoringSerializer(
-                    instance=service_request, data=json_data)
+                service_request.agent_id = json_data['agent_id']
+                service_request.save()
 
-            if service_type == "investment_advice":
+                context = {"request updated"}
+
+                return Response(context, status=status.HTTP_201_CREATED)
+
+            if service_type == "investmentAdvice":
+                print("its investment advice service")
 
                 service_request = InvestmentAdvice.objects.get(
                     service_id=json_data['service_id'])
+                print(service_request)
 
-                serializer = AddInvestmentAdviceSerializer(
-                    instance=service_request, data=json_data)
+                service_request.agent_id = json_data['agent_id']
+                service_request.save()
 
-            if service_type == "other_services":
+                context = {"request updated"}
+
+                return Response(context, status=status.HTTP_201_CREATED)
+
+            if service_type == "otherServices":
+                print("its other service")
 
                 service_request = OtherServices.objects.get(
                     service_id=json_data['service_id'])
+                print(service_request)
 
-                serializer = AddOtherServicesSerializer(
-                    instance=service_request, data=json_data)
+                service_request.agent_id = json_data['agent_id']
+                service_request.save()
 
-            if serializer.is_valid():
-                serializer.save()
+                context = {"request updated"}
 
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-            else:
-                print(serializer.errors)
-                context = {"error": serializer.errors}
-                return Response(context, status=status.HTTP_400_BAD_REQUEST)
-
+                return Response(context, status=status.HTTP_201_CREATED)
         else:
-            context = {"message": "Unauthorized Acess"}
-            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['POST'])

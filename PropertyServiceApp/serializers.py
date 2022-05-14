@@ -29,6 +29,7 @@ class ServicesSupportUserSerializer(serializers.ModelSerializer):
 
 class GetAllPropertyTracingSerializer(serializers.ModelSerializer):
     user = ServicesSupportUserSerializer()
+    agent = ServicesSupportUserSerializer()
 
     class Meta:
         model = PropertyTracing
@@ -37,6 +38,7 @@ class GetAllPropertyTracingSerializer(serializers.ModelSerializer):
 
 class GetAllMaintainanceAndLeaseSerializer(serializers.ModelSerializer):
     user = ServicesSupportUserSerializer()
+    agent = ServicesSupportUserSerializer()
 
     class Meta:
         model = MaintainanceAndLease
@@ -45,6 +47,7 @@ class GetAllMaintainanceAndLeaseSerializer(serializers.ModelSerializer):
 
 class GetAllLegalIssuesSerializer(serializers.ModelSerializer):
     user = ServicesSupportUserSerializer()
+    agent = ServicesSupportUserSerializer()
 
     class Meta:
         model = LegalIssues
@@ -53,6 +56,7 @@ class GetAllLegalIssuesSerializer(serializers.ModelSerializer):
 
 class GetAllPropertyMonitoringSerializer(serializers.ModelSerializer):
     user = ServicesSupportUserSerializer()
+    agent = ServicesSupportUserSerializer()
 
     class Meta:
         model = PropertyMonitoring
@@ -61,6 +65,7 @@ class GetAllPropertyMonitoringSerializer(serializers.ModelSerializer):
 
 class GetAllInvestmentAdviceSerializer(serializers.ModelSerializer):
     user = ServicesSupportUserSerializer()
+    agent = ServicesSupportUserSerializer()
 
     class Meta:
         model = InvestmentAdvice
@@ -69,6 +74,7 @@ class GetAllInvestmentAdviceSerializer(serializers.ModelSerializer):
 
 class GetAllOtherServicesSerializer(serializers.ModelSerializer):
     user = ServicesSupportUserSerializer()
+    agent = ServicesSupportUserSerializer()
 
     class Meta:
         model = OtherServices
