@@ -20,5 +20,7 @@ urlpatterns = [
          name='fetch_all_users/'),
     path('assign_agent_for_service_request/', assign_agent_for_service_request,
          name='assign_agent_for_service_request/'),
+    path('create_user/', create_user,
+         name='create_user/'),
 
 ]

@@ -477,3 +477,34 @@ def fetch_all_users(request):
         else:
             context = {"message": "Unauthorized Acess"}
             return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def create_user(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            user_role = data["user_role"] == "admin"
+            role_data = Roles.objects.only('id').get(role="agent")
+
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token and user_role:
+
+            user_data = Users.objects.create(
+                phone_number=data["phone_number"], full_name=data["full_name"], email=data["email"], address=data["address"], role=role_data)
+
+            context = {"user created"}
+
+            return Response(context, status=status.HTTP_201_CREATED)
+
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
