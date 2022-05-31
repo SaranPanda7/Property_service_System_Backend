@@ -449,6 +449,52 @@ def fetch_service_requests_for_admin(request):
 
 
 @api_view(['POST'])
+def fetch_service_requests_for_agent(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        # return Response("ok")
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            role = data["role"] == "agent"
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token and role:
+
+            property_tracing = GetAllPropertyTracingSerializer(
+                PropertyTracing.objects.filter(agent_id=data["id"]), many=True)
+
+            maintainance_lease = GetAllMaintainanceAndLeaseSerializer(
+                MaintainanceAndLease.objects.filter(agent_id=data["id"]), many=True)
+
+            legal_issues = GetAllLegalIssuesSerializer(
+                LegalIssues.objects.filter(agent_id=data["id"]), many=True)
+
+            property_monitoring = GetAllPropertyMonitoringSerializer(
+                PropertyMonitoring.objects.filter(agent_id=data["id"]), many=True)
+
+            investment_advice = GetAllInvestmentAdviceSerializer(
+                InvestmentAdvice.objects.filter(agent_id=data["id"]), many=True)
+
+            other_services = GetAllOtherServicesSerializer(
+                OtherServices.objects.filter(agent_id=data["id"]), many=True)
+
+            context = {"data": property_tracing.data + maintainance_lease.data + legal_issues.data + property_monitoring.data + investment_advice.data + other_services.data
+                       }
+
+            return Response(context)
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
 def fetch_all_users(request):
 
     if request.method == 'POST':
@@ -460,6 +506,37 @@ def fetch_all_users(request):
             token = data["token"] == "true"
             user_role = data["role"] == "admin"
             role_data = Roles.objects.get(role="agent")
+
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token and user_role:
+
+            users_data = UserSerializer(
+                Users.objects.filter(role_id=role_data.id), many=True)
+
+            context = {"data": users_data.data}
+
+            return Response(context)
+
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def fetch_all_customers(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            user_role = data["role"] == "admin"
+            role_data = Roles.objects.get(role="client")
 
         except Users.DoesNotExist:
             context = {"message": "Unauthorized Acess"}
@@ -504,6 +581,71 @@ def create_user(request):
             context = {"user created"}
 
             return Response(context, status=status.HTTP_201_CREATED)
+
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def create_chat(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            role_data = Roles.objects.only('id').get(role="agent")
+
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token:
+
+            serializer = MessageSerializer(data=data)
+
+            if serializer.is_valid():
+                serializer.save()
+
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+            else:
+                print(serializer.errors)
+                context = {"error": serializer.errors}
+                return Response(context, status=status.HTTP_400_BAD_REQUEST)
+
+        else:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(['POST'])
+def get_chat(request):
+
+    if request.method == 'POST':
+        data = request.data
+        print(data)
+
+        try:
+            user = Users.objects.get(id=data["id"])
+            token = data["token"] == "true"
+            role_data = Roles.objects.only('id').get(role="agent")
+
+        except Users.DoesNotExist:
+            context = {"message": "Unauthorized Acess"}
+            return Response(context, status=status.HTTP_401_UNAUTHORIZED)
+
+        if user and token:
+
+            messages = Chat.objects.filter(
+                service_id=data["service_id"])
+
+            serializer = RetriveMessageSerializer(messages, many=True)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         else:
             context = {"message": "Unauthorized Acess"}

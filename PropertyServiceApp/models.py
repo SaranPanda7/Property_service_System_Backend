@@ -72,7 +72,8 @@ class PropertyTracing(models.Model):
         max_length=255, blank=True, null=True)
     available_days = models.JSONField(blank=True, null=True)
     available_time = models.JSONField(blank=True, null=True)
-    agent = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=True)
+    agent = models.ForeignKey(
+        Users, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.service_id + " || " + self.property_title + " || " + self.property_description
@@ -113,7 +114,8 @@ class MaintainanceAndLease(models.Model):
     virtual_tour = models.TextField(blank=True, null=True)
     available_days = models.JSONField(blank=True, null=True)
     available_time = models.JSONField(blank=True, null=True)
-    agent = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=True)
+    agent = models.ForeignKey(
+        Users, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.service_id + " || " + self.property_title + " || " + self.property_description
@@ -152,7 +154,8 @@ class LegalIssues(models.Model):
         max_length=255, blank=True, null=True)
     available_days = models.JSONField(blank=True, null=True)
     available_time = models.JSONField(blank=True, null=True)
-    agent = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=True)
+    agent = models.ForeignKey(
+        Users, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.service_id + " || " + self.issue_type + " || " + self.issue_description
@@ -191,7 +194,8 @@ class PropertyMonitoring(models.Model):
         max_length=255, blank=True, null=True)
     available_days = models.JSONField(blank=True, null=True)
     available_time = models.JSONField(blank=True, null=True)
-    agent = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=True)
+    agent = models.ForeignKey(
+        Users, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.service_id + " || " + self.monitoring_type + " || " + self.property_description
@@ -235,7 +239,8 @@ class InvestmentAdvice(models.Model):
     property_features = models.JSONField(blank=True, null=True)
     available_days = models.JSONField(blank=True, null=True)
     available_time = models.JSONField(blank=True, null=True)
-    agent = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=True)
+    agent = models.ForeignKey(
+        Users, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.service_id + " || " + self.property_id + " || " + self.property_size
@@ -277,7 +282,19 @@ class OtherServices(models.Model):
     address_type = models.CharField(max_length=30, blank=True, null=True)
     available_days = models.JSONField(blank=True, null=True)
     available_time = models.JSONField(blank=True, null=True)
-    agent = models.ForeignKey(Users, on_delete=models.DO_NOTHING, null=True)
+    agent = models.ForeignKey(
+        Users, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.service_id + " || " + self.required_service + " || " + self.city_name
+
+
+class Chat(models.Model):
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, null=True)
+    service_name = models.CharField(max_length=30)
+    service_id = models.CharField(max_length=25)
+    message = models.CharField(max_length=255)
+    time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.service_id + " || " + self.service_name + " || " + self.message

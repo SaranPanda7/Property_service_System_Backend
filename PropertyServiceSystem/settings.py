@@ -114,12 +114,12 @@ GRAPHENE = {
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.75.203:8000",
     "http://192.168.75.202:3000",
+    "http://10.0.0.168:3000",
     "http://localhost:3000",
 ]
 
 # -------START TWILIO CLLING DETAILS--------
 # Email_Id = "haricoolguys@gmail.com"
-# Email_Id = "iamhacke1r@gmail.com"
 # Password = 'Gurugubelliharibabu@1'
 
 # ACCOUNT_SECURITY_API_KEY='jK2XmffiPhfxnt4IZ11bP9iVoDF7viBi'
@@ -134,8 +134,11 @@ CORS_ALLOWED_ORIGINS = [
 
 # APPEND_SLASH=False
 
+# --------------------------------------------
+# Email_Id = "iamhacke1r@gmail.com"
 
 ACCOUNT_SECURITY_API_KEY = 'iWX0PRx2KrJ2krs6dVkwS0yaQDVAM8Sa'
 TWILIO_ACCOUNT_SID = 'AC7d62bbb1670a2c9627c1579dcaa98fea'
 TWILIO_AUTH_TOKEN = 'f7c084677acb9e5909b3a33ce7557a2c'
 TWILIO_VERIFICATION_SID = 'VAe868ed63e07bc1f15786eae3a2c67ca5'
+# -------------------------------------------------------

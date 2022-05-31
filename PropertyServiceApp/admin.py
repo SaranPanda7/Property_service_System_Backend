@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Users, Roles, PropertyTracing, MaintainanceAndLease, LegalIssues, PropertyMonitoring, InvestmentAdvice, OtherServices
+from .models import *
 from .forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -55,6 +55,8 @@ admin.site.register(PropertyMonitoring)
 admin.site.register(InvestmentAdvice)
 
 admin.site.register(OtherServices)
+
+admin.site.register(Chat)
 
 
 # admin.site.unregister(Group)

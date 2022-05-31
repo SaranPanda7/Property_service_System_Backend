@@ -121,3 +121,19 @@ class AddOtherServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = OtherServices
         fields = '__all__'
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    # user = ServicesSupportUserSerializer()
+
+    class Meta:
+        model = Chat
+        fields = '__all__'
+
+
+class RetriveMessageSerializer(serializers.ModelSerializer):
+    user = ServicesSupportUserSerializer()
+
+    class Meta:
+        model = Chat
+        fields = '__all__'
