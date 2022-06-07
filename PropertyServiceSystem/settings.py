@@ -19,7 +19,6 @@ INSTALLED_APPS = [
     'rest_framework',
     "corsheaders",
     'PropertyServiceApp',
-    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -105,11 +104,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'PropertyServiceApp.User'
-
-GRAPHENE = {
-    "SCHEMA": "PropertyServiceApp.schema.schema"
-}
-
 
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.75.203:8000",

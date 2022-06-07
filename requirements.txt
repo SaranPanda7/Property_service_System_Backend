@@ -9,7 +9,7 @@ argh==0.26.2
 argon2-cffi @ file:///C:/ci/argon2-cffi_1613037869401/work
 arrow @ file:///C:/ci/arrow_1617738834352/work
 art==5.5
-asgiref==3.5.0
+asgiref==3.5.2
 asn1crypto @ file:///tmp/build/80754af9/asn1crypto_1596577642040/work
 astroid @ file:///C:/ci/astroid_1628063282661/work
 astropy @ file:///C:/ci/astropy_1629829318700/work
@@ -64,9 +64,10 @@ debugpy @ file:///C:/ci/debugpy_1629222819322/work
 decorator @ file:///tmp/build/80754af9/decorator_1632776554403/work
 defusedxml @ file:///tmp/build/80754af9/defusedxml_1615228127516/work
 diff-match-patch @ file:///Users/ktietz/demo/mc3/conda-bld/diff-match-patch_1630511840874/work
+distlib==0.3.4
 distributed @ file:///C:/ci/distributed_1635968318313/work
-Django==3.2.12
-django-cors-headers==3.11.0
+Django==4.0.5
+django-cors-headers==3.13.0
 django-filter==21.1
 djangorestframework==3.13.1
 docutils @ file:///C:/ci/docutils_1620828264669/work
@@ -82,7 +83,6 @@ future @ file:///C:/ci/future_1607568713721/work
 gevent @ file:///C:/ci/gevent_1628273776273/work
 glob2 @ file:///home/linux1/recipes/ci/glob2_1610991677669/work
 graphene==2.1.9
-graphene-django==2.15.0
 graphql-core==2.3.2
 graphql-relay==2.0.1
 greenlet @ file:///C:/ci/greenlet_1628888275363/work
@@ -126,7 +126,7 @@ libarchive-c @ file:///tmp/build/80754af9/python-libarchive-c_1617780486945/work
 llvmlite==0.37.0
 locket==0.2.1
 lxml @ file:///C:/ci/lxml_1616443418777/work
-Markdown==3.3.6
+Markdown==3.3.7
 MarkupSafe @ file:///C:/ci/markupsafe_1607027406824/work
 matplotlib @ file:///C:/ci/matplotlib-suite_1634667159685/work
 matplotlib-inline @ file:///tmp/build/80754af9/matplotlib-inline_1628242447089/work
@@ -174,6 +174,7 @@ pexpect @ file:///tmp/build/80754af9/pexpect_1605563209008/work
 pickleshare @ file:///tmp/build/80754af9/pickleshare_1606932040724/work
 Pillow==8.4.0
 pkginfo==1.7.1
+platformdirs==2.5.2
 pluggy @ file:///C:/ci/pluggy_1615976440052/work
 ply==3.11
 poyo @ file:///tmp/build/80754af9/poyo_1617751526755/work
@@ -192,7 +193,7 @@ pydocstyle @ file:///tmp/build/80754af9/pydocstyle_1621600989141/work
 pyerfa @ file:///C:/ci/pyerfa_1621560974055/work
 pyflakes @ file:///tmp/build/80754af9/pyflakes_1617200973297/work
 Pygments @ file:///tmp/build/80754af9/pygments_1629234116488/work
-PyJWT==2.3.0
+PyJWT==2.4.0
 pylint @ file:///C:/ci/pylint_1627536884966/work
 pyls-spyder==0.4.0
 PyNaCl @ file:///C:/ci/pynacl_1607612759007/work
@@ -279,6 +280,7 @@ ujson @ file:///C:/ci/ujson_1611259568517/work
 unicodecsv==0.14.1
 Unidecode @ file:///tmp/build/80754af9/unidecode_1614712377438/work
 urllib3==1.26.9
+virtualenv==20.14.1
 watchdog @ file:///C:/ci/watchdog_1624955113064/work
 wcwidth @ file:///Users/ktietz/demo/mc3/conda-bld/wcwidth_1629357192024/work
 webencodings==0.5.1
